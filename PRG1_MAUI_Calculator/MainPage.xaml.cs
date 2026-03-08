@@ -13,37 +13,31 @@
         private string operation = "";
 
 
-        // hantering för numeriska knappar
         private void NumberButton(object sender, EventArgs e)
         {
             Button button = (Button)sender;
 
-            // Bygg upp operand baserat på knapptexten (t.ex. "1", "2")
-            operand = (operand * 10) + Convert.ToDouble(button.Text);
 
-            EntryCalculations.Text += button.Text;
+            EntryCalculations.Text = button.Text;
             EntryResult.Text = operand.ToString();
         }
 
 
-        // hantering för operator-knappar (+, -, *, /)
         private void OperatorButton(object sender, EventArgs e)
         {
-            if (operation != "") // Utför beräkning om en tidigare operation finns
+            if (operation != "") 
             {
                 Calculate();
             }
             else
             {
-                accumulator = operand; // Spara första talet i accumulator
+                accumulator = operand;
             }
-
-            operand = 0;
 
             Button button = (Button)sender;
             operation = button.Text;
 
-            EntryCalculations.Text += $" {operation} ";
+            EntryCalculations.Text = $" {operation} ";
         }
 
 
@@ -96,7 +90,6 @@
             accumulator = 0;
             operand = 0;
             operation = "";
-
             EntryCalculations.Text = "";
             EntryResult.Text = "0";
         }
