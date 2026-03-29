@@ -3,22 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PRG1_MAUI_Calculator.MainPage"
              Title="Kalkylator">
-    <Grid RowDefinitions="Auto, *, *, *, *, *, *"
+    <Grid RowDefinitions="*, *, *, *, *, *, *"
           ColumnDefinitions="*, *, *, *"
           Padding="10"
           ColumnSpacing="2"
           RowSpacing="2">
         <!-- Display för beräkningar -->
-        <Entry x:Name="EntryCalculations"
+            <Entry x:Name="EntryCalculations"
                Grid.Row="0"
                Grid.ColumnSpan="4"
                IsReadOnly="True"
                FontSize="24"
-               HorizontalOptions="FillAndExpand"
-               VerticalOptions="Center"
+               VerticalOptions="Fill"
                BackgroundColor="White"
                TextColor="Black"
-               HorizontalTextAlignment="End"/>
+               HorizontalTextAlignment="End"
+               />
 
         <!-- Display för resultat -->
         <Entry x:Name="EntryResult"
@@ -26,16 +26,15 @@
                Grid.ColumnSpan="4"
                IsReadOnly="True"
                FontSize="32"
-               HorizontalOptions="FillAndExpand"
-               VerticalOptions="Center"
+               VerticalOptions="Fill"
                BackgroundColor="White"
                TextColor="Black"
                HorizontalTextAlignment="End"/>
 
         <!-- Rad 1 -->
         <Button Grid.Row="2" Grid.Column="0" Text="C" Clicked="ClearButton" />
-        <Button Grid.Row="2" Grid.Column="1" Text="M+" Clicked="StoreInMemoryButton" />
-        <Button Grid.Row="2" Grid.Column="2" Text="M-" Clicked="CatchFromMemoryButton" />
+        <Button Grid.Row="2" Grid.Column="1" Text="M+" Clicked="StoreInMemoryButton" BackgroundColor="Red"/>
+        <Button Grid.Row="2" Grid.Column="2" Text="M-" Clicked="CatchFromMemoryButton" BackgroundColor="Red"/>
         <Button Grid.Row="2" Grid.Column="3" Text="/" Clicked="OperatorButton" />
 
         <!-- Rad 2 -->
@@ -57,8 +56,9 @@
         <Button Grid.Row="5" Grid.Column="3" Text="+" Clicked="OperatorButton" />
 
         <!-- Rad 5 -->
-        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="0" Clicked="NumberButton" HorizontalOptions="FillAndExpand" />
-        <Button Grid.Row="6" Grid.Column="2" Text="." Clicked="NumberButton" />
-        <Button Grid.Row="6" Grid.Column="3" Text="=" Clicked="EqualButton" />
+        <Button Grid.Row="6" Grid.Column="0" Text="+/-" Clicked="EqualButton" BackgroundColor="DodgerBlue"/>
+        <Button Grid.Row="6" Grid.Column="1" Text="0" Clicked="NumberButton"  />
+        <Button Grid.Row="6" Grid.Column="2" Text="." Clicked="NumberButton" BackgroundColor="DodgerBlue"/>
+        <Button Grid.Row="6" Grid.Column="3" Text="=" Clicked="EqualButton" BackgroundColor="Grey"/>
     </Grid>
 </ContentPage>
