@@ -2,40 +2,42 @@
 {
     public partial class MainPage : ContentPage
     {
-
+        private double accumulator = 0;
+        private double operand = 0;
+        private string operation = "";
+        private string currentInput = "";   // Ny variabel. Hur används den, och vad är skillnaden mot tidigare?
+        private bool isCalculated = false;  // Ny (oanvänd) variabel. Vad kan denna tänkas hålla koll på, och var använda den?
         public MainPage()
         {
             InitializeComponent();
         }
 
-        private double accumulator = 0;
-        private double operand = 0;
-        private string operation = "";
-
-
-        // hantering för numeriska knappar
+        // TODO Fortfarande fungerar inte fortsatta uträkningar, efter att Calculate() anropats (om man inte trycker på "C" först, då fungerar det). 
         private void NumberButton(object sender, EventArgs e)
         {
             Button button = (Button)sender;
 
-            // Bygg upp operand baserat på knapptexten (t.ex. "1", "2")
-            operand = (operand * 10) + Convert.ToDouble(button.Text);
+            currentInput += button.Text;
 
-            EntryCalculations.Text += button.Text;
-            EntryResult.Text = operand.ToString();
+            if (double.TryParse(currentInput, out double value))
+            {
+                // operand = (operand * 10) + Convert.ToDouble(button.Text); ... Varför fungerade inte den tidigare lösningen?
+                operand = value;
+                EntryResult.Text = currentInput;
+                EntryCalculations.Text += button.Text;
+            }
         }
 
 
-        // hantering för operator-knappar (+, -, *, /)
         private void OperatorButton(object sender, EventArgs e)
         {
-            if (operation != "") // Utför beräkning om en tidigare operation finns
+            if (operation != "")
             {
                 Calculate();
             }
             else
             {
-                accumulator = operand; // Spara första talet i accumulator
+                accumulator = operand;
             }
 
             operand = 0;
@@ -44,6 +46,25 @@
             operation = button.Text;
 
             EntryCalculations.Text += $" {operation} ";
+
+            currentInput = "";  // glöm inte strategiskt nollställa, annars följer saker med till nästa "omgång"!
+            operand = 0;
+        }
+
+        // För att hantera kommatecknet måste det ges en egen metod. Varför? Vad gör denna metod, och vad är svagheten med denna lösning?
+        private void DecimalButton(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(currentInput))
+            {
+                currentInput = "0,";
+            }
+            else if (!currentInput.Contains(","))
+            {
+                currentInput += ",";
+            }
+
+            EntryResult.Text = currentInput;
+            EntryCalculations.Text += ",";
         }
 
 
@@ -56,6 +77,7 @@
 
             operation = "";
             operand = 0;
+            currentInput = accumulator.ToString();
         }
 
 
@@ -73,7 +95,7 @@
                     accumulator *= operand;
                     break;
                 case "/":
-                    if (operand == 0) // Hantera division med noll
+                    if (operand == 0)
                     {
                         DisplayAlert("Fel!", "Division med noll är ej tillåtet.", "OK");
                         Clear();
@@ -96,16 +118,20 @@
             accumulator = 0;
             operand = 0;
             operation = "";
+            currentInput = "";
 
             EntryCalculations.Text = "";
             EntryResult.Text = "0";
         }
 
+
+        // TODO Minnesknappen fungerar inte ännu
         private void StoreInMemoryButton(object sender, EventArgs e)
         {
             EntryCalculations.Text = "Kommande funktion";
         }
 
+        // TODO Hämta från minnet fungerar inte ännu
         private void CatchFromMemoryButton(object sender, EventArgs e)
         {
             EntryCalculations.Text = "Kommande funktion";
