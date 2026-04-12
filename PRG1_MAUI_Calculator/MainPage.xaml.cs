@@ -51,7 +51,7 @@
             operand = 0;
         }
 
-        // För att hantera kommatecknet måste det ges en egen metod. Varför? Vad gör denna metod, och vad är svagheten med denna lösning?
+        // För att hantera kommatecknet måste det ges en egen metod. Varför? Vad gör denna metod, och vad är svagheten med denna lösning? Glöm inte att ändra i xaml.
         private void DecimalButton(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(currentInput))
